@@ -14,7 +14,7 @@ namespace IT_ELECTIVE_2_PRELIM_EXAM.Models;
 // - Implement the SearchCriteria property (return the Title)
 // - Implement the MatchesSearch(string searchTerm) method (check if searchTerm is in Title, case-insensitive)
 
-public class MealRecipe : RecipeBase //, IRecipeSearchable  <-- EXERCISE 9: Uncomment this
+public class MealRecipe : RecipeBase, IRecipeSearchable
 {
     public string Category { get; set; }
     public string Area { get; set; }
