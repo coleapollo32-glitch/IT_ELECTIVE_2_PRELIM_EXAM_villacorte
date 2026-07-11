@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace IT_ELECTIVE_2_PRELIM_EXAM_HttpClient.Exercises;
 
 // EXERCISE 6: POST Create Review
@@ -15,15 +17,12 @@ namespace IT_ELECTIVE_2_PRELIM_EXAM_HttpClient.Exercises;
 
 public static class CreateReview
 {
-    public static async Task Run(System.Net.Http.HttpClient client)
+    public static async Task Run(HttpClient client)
     {
-        // TODO: Create JSON string with title, body, and userId
-        // TODO: Create StringContent with the JSON and Content-Type "application/json"
-        // TODO: Send POST request to https://jsonplaceholder.typicode.com/posts
-        // TODO: Assert status code is 201 Created
-        // TODO: Parse the response JSON
-        // TODO: Assert the response has an "id" field with a value
+        string url = "https://jsonplaceholder.typicode.com/posts/1";
+        var response = await client.DeleteAsync(url);
 
-        throw new NotImplementedException();
+        if (response.StatusCode != HttpStatusCode.OK)
+            throw new Exception($"Expected 200 OK, got {response.StatusCode}");
     }
 }
