@@ -21,4 +21,4 @@ public static class DeleteReview
         if (response.StatusCode != HttpStatusCode.OK)
             throw new Exception($"Expected 200 OK, got {response.StatusCode}");
     }
-}}
+}
