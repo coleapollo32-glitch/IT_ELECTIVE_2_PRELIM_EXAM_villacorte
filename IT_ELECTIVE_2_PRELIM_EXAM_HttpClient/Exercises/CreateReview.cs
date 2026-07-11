@@ -1,4 +1,6 @@
 using System.Net;
+using System.Text;
+using System.Text.Json;
 
 namespace IT_ELECTIVE_2_PRELIM_EXAM_HttpClient.Exercises;
 
@@ -19,10 +21,19 @@ public static class CreateReview
 {
     public static async Task Run(HttpClient client)
     {
-        string url = "https://jsonplaceholder.typicode.com/posts/1";
-        var response = await client.DeleteAsync(url);
+        string url = "https://jsonplaceholder.typicode.com/posts";
+        string jsonBody = @"{""title"":""Great Pasta"",""body"":""Loved this recipe"",""userId"":1}";
+        var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-        if (response.StatusCode != HttpStatusCode.OK)
-            throw new Exception($"Expected 200 OK, got {response.StatusCode}");
+        var response = await client.PostAsync(url, content);
+
+        if (response.StatusCode != HttpStatusCode.Created)
+            throw new Exception($"Expected 201 Created, got {response.StatusCode}");
+
+        string responseJson = await response.Content.ReadAsStringAsync();
+        using var doc = JsonDocument.Parse(responseJson);
+
+        if (!doc.RootElement.TryGetProperty("id", out _))
+            throw new Exception("Response does not contain 'id' field");
     }
 }
